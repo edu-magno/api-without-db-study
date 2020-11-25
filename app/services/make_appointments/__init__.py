@@ -7,18 +7,14 @@ from app.services.check_if_time_is_available import check_if_time_is_available
 from os import environ
 
 
-def make_appointments(appointment: Dict) -> Dict:
-
-    fieldnames = [x for x in environ.get('FIELDNAMES').split(' ')]
-    file_path = environ.get('FILE_PATH')
-
+def make_appointments(file_path, fieldnames, appointment: Dict) -> Dict:
     date = appointment['date']
     regex_date = search(r'[0-9]{2}[:]{1}[0-9]{2}[:]{1}[0-9]{2}', date)
     time = date[regex_date.span()[0]:regex_date.span()[1]]
 
     hour = int(time[0:2])
 
-    if check_if_time_is_available(date) == False:
+    if check_if_time_is_available(file_path, fieldnames, date) == False:
         return {'message': 'O horário já está ocupado, tente outro horário entre 08:00-23:00'}
 
     if 8 <= hour <= 23:

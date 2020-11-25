@@ -6,9 +6,7 @@ from app.services.formatted_date import formatted_date
 from os import environ
 
 
-def update_appointment(appointment: str, update: Dict) -> str:
-    file_path = environ.get('FILE_PATH')
-    fieldnames = [x for x in environ.get('FIELDNAMES').split(' ')]
+def update_appointment(file_path, fieldnames, appointment: str, update: Dict) -> str:
     appointment_modified = {}
     list_appointments = []
     id_in_reader = False
@@ -33,7 +31,7 @@ def update_appointment(appointment: str, update: Dict) -> str:
     if id_in_reader == False:
         return {'message': 'O usuário não existe'}
 
-    if check_if_time_is_available(update['date']) == False:
+    if check_if_time_is_available(file_path, fieldnames, update['date']) == False:
         return {'message': 'O horário já está ocupado, tente outro horário entre 08:00-23:00'}
 
     with open(file_path, 'w') as file:
