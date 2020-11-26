@@ -5,6 +5,7 @@ from app.services.user_id import user_id
 from app.services.formatted_date import formatted_date
 from os import environ
 from re import search
+from app.services.get_hour import get_hour
 
 def update_appointment(file_path, fieldnames, appointment: str, update: Dict) -> str:
     appointment_modified = {}
@@ -19,16 +20,9 @@ def update_appointment(file_path, fieldnames, appointment: str, update: Dict) ->
         reader = DictReader(file, fieldnames=fieldnames)
 
         for appoint in reader:
-
-            regex_date = search(r'[0-9]{2}[:]{1}[0-9]{2}[:]{1}[0-9]{2}', update['date'])
-            time = update['date'][regex_date.span()[0]:regex_date.span()[1]]
-
-            hour = int(time[0:2])
-
-
             if appoint['id'] == appointment :
                 id_in_reader = True
-                if  8 <= hour <= 23:
+                if  8 <= get_hour(update['date']) <= 23:
                     appoint.update(update)
                     is_in_time_range = True
                     appointment_modified = appoint

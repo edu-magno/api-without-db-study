@@ -1,16 +1,9 @@
 from app.services.make_appointments import make_appointments
 from tests.variables_for_test_functions import *
-from tests.clean_up_file import clean_up_file
+import pytest
 
 
-
-
-
-def test_make_appointments_sucess():
-
-    clean_up_file(file_path, fieldnames)
-
-
+def test_make_appointments_sucess(clean_up_fixture):
 
     result = make_appointments(file_path, fieldnames, appointment1)
     expected = appointment = {
@@ -25,20 +18,19 @@ def test_make_appointments_sucess():
 
     assert expected == result
 
-def test_make_appointments_not_available_date():
 
-    clean_up_file(file_path, fieldnames)
+def test_make_appointments_not_available_date(clean_up_fixture):
 
-    make_appointments(file_path,fieldnames,appointment1)
+    make_appointments(file_path, fieldnames, appointment1)
 
-    result = make_appointments(file_path,fieldnames,appointment4)
-    expected = {'message': 'O horário já está ocupado, tente outro horário entre 08:00-23:00'}
+    result = make_appointments(file_path, fieldnames, appointment4)
+    expected = {
+        'message': 'O horário já está ocupado, tente outro horário entre 08:00-23:00'}
 
     assert expected == result
 
-def test_make_appointments_invalid_date():
 
-    clean_up_file(file_path, fieldnames)
+def test_make_appointments_invalid_date(clean_up_fixture):
 
     result = make_appointments(file_path, fieldnames, appointment3)
     expected = {'message': 'Não foi possível marcar uma consulta nesse horário, as consultas só podem ser marcadas das 08:00 até as 23:00.'}

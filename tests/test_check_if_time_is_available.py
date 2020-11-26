@@ -1,11 +1,10 @@
-from tests.clean_up_file import clean_up_file
 from app.services.make_appointments import make_appointments
 from tests.variables_for_test_functions import *
 from app.services.check_if_time_is_available import check_if_time_is_available
+import pytest
 
 
-def test_check_if_time_is_available_is_false():
-    clean_up_file(file_path, fieldnames)
+def test_check_if_time_is_available_is_false(clean_up_fixture):
 
     make_appointments(file_path, fieldnames, appointment1)
     make_appointments(file_path, fieldnames, appointment2)
@@ -16,8 +15,7 @@ def test_check_if_time_is_available_is_false():
     assert expected == result
 
 
-def test_check_if_time_is_available_is_true():
-    clean_up_file(file_path, fieldnames)
+def test_check_if_time_is_available_is_true(clean_up_fixture):
 
     make_appointments(file_path, fieldnames, appointment1)
     make_appointments(file_path, fieldnames, appointment2)

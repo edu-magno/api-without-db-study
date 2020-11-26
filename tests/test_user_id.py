@@ -1,11 +1,10 @@
-from tests.clean_up_file import clean_up_file
 from app.services.make_appointments import make_appointments
-from app.services.user_id import user_id
 from tests.variables_for_test_functions import *
+from app.services.user_id import user_id
+import pytest
 
 
 def test_user_id():
-    clean_up_file(file_path, fieldnames)
 
     make_appointments(file_path, fieldnames, appointment1)
     make_appointments(file_path, fieldnames, appointment2)
@@ -16,8 +15,7 @@ def test_user_id():
     assert expected == result
 
 
-def test_user_id_if_file_is_empty():
-    clean_up_file(file_path, fieldnames)
+def test_user_id_if_file_is_empty(clean_up_fixture):
 
     result = user_id(file_path)
     expected = 1

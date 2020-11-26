@@ -1,13 +1,12 @@
-from tests.clean_up_file import clean_up_file
 from app.services.make_appointments import make_appointments
 from tests.variables_for_test_functions import *
 from app.services.list_appointments import list_appointments
 from app.services.delete_appointment import delete_appointment
+import pytest
 
 
-def test_delete_appointment():
-    clean_up_file(file_path, fieldnames)
 
+def test_delete_appointment(clean_up_fixture):
     make_appointments(file_path, fieldnames, appointment1)
     make_appointments(file_path, fieldnames, appointment2)
 
@@ -27,9 +26,7 @@ def test_delete_appointment():
     assert expected == result
 
 
-def test_return_of_delete_appointment():
-    clean_up_file(file_path, fieldnames)
-
+def test_return_of_delete_appointment(clean_up_fixture):
     make_appointments(file_path, fieldnames, appointment1)
     make_appointments(file_path, fieldnames, appointment2)
 
@@ -39,9 +36,7 @@ def test_return_of_delete_appointment():
     assert expected == result
 
 
-def test_return_of_delete_appointment_if_apppointment_doesnt_exist():
-    clean_up_file(file_path, fieldnames)
-
+def test_return_of_delete_appointment_if_apppointment_doesnt_exist(clean_up_fixture):
     make_appointments(file_path, fieldnames, appointment1)
     make_appointments(file_path, fieldnames, appointment2)
 
